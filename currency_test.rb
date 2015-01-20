@@ -7,9 +7,9 @@ class CurrencyTest < MiniTest::Test
     assert Currency
   end
 
-  def test_created_with_amount
-    currency = Currency.new(3)
+  def test_created_with_amount_and_currency_code
+    currency = Currency.new(3, "RUB")
     assert currency.amount == 3
+    assert currency.currency_code.length == 3
   end
-
 end
