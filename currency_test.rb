@@ -1,6 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './celebrity_names'
+require './currency'
 
-class CurrencyTest
+class CurrencyTest < MiniTest::Test
+  def test_currency_class_exists
+    assert Currency
+  end
 end
