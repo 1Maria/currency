@@ -1,1 +1,3 @@
+class Currency
 
+end
