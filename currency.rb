@@ -6,6 +6,8 @@ class Currency
     @currency_code = currency_code
   end
 
-
+  def ==(other)
+    amount == other.amount && currency_code == other.currency_code
+  end
 
 end
