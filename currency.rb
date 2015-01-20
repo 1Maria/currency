@@ -5,4 +5,7 @@ class Currency
     @amount = amount
     @currency_code = currency_code
   end
+
+
+
 end
