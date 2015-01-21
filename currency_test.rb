@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './currency'
+require './different_currency_code_error'
 
 class CurrencyTest < MiniTest::Test
   def test_currency_class_exists
@@ -26,21 +27,28 @@ class CurrencyTest < MiniTest::Test
   def test_add_two_currency_objects
     currency = Currency.new(3, "RUB")
     currency1 = Currency.new(3, "RUB")
-    currency2 = Currency.new(3, "USD")
     currency_result = currency + currency1
     assert currency_result.amount == 6
     assert currency_result.currency_code == "RUB"
-    refute currency + currency2
   end
 
   def test_subtract_two_currency_objects
     currency = Currency.new(3, "RUB")
     currency1 = Currency.new(3, "RUB")
-    currency2 = Currency.new(3, "USD")
     currency_result1 = currency - currency1
     assert currency_result1.amount == 0
     assert currency_result1.currency_code == "RUB"
-    refute currency - currency2
+  end
+
+  def test_raises_error_code_when_currencies_dont_match
+    currency1 = Currency.new(3, "RUB")
+    currency2 = Currency.new(3, "USD")
+    assert_raises DifferentCurrencyCodeError do
+      currency1 + currency2
+    end
+    assert_raises DifferentCurrencyCodeError do
+      currency1 - currency2
+    end
   end
 
 end
