@@ -33,4 +33,14 @@ class CurrencyTest < MiniTest::Test
     refute currency + currency2
   end
 
+  def test_subtract_two_currency_objects
+    currency = Currency.new(3, "RUB")
+    currency1 = Currency.new(3, "RUB")
+    currency2 = Currency.new(3, "USD")
+    currency_result1 = currency - currency1
+    assert currency_result1.amount == 0
+    assert currency_result1.currency_code == "RUB"
+    refute currency - currency2
+  end
+
 end
