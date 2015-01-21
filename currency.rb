@@ -18,5 +18,7 @@ class Currency
     Currency.new(amount + other.amount, currency_code) if compare_currency_codes(other)
   end
 
-
+  def -(other)
+    Currency.new(amount - other.amount, currency_code) if compare_currency_codes(other)
+  end
 end
