@@ -24,5 +24,7 @@ class Currency
     Currency.new(amount - other.amount, currency_code)
   end
 
-  
+  def *(other)
+    Currency.new(amount*Fixnum || amount*Float, currency_code)
+  end
 end
