@@ -10,5 +10,11 @@ class Currency
     amount == other.amount && compare_currency_codes(other)
   end
 
+  def compare_currency_codes(other)
+    currency_code == other.currency_code
+  end
 
+  def +(other)
+    Currency.new(amount + other.amount, currency_code) if compare_currency_codes(other)
+  end
 end
