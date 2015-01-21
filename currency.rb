@@ -7,7 +7,8 @@ class Currency
   end
 
   def ==(other)
-    amount == other.amount && currency_code == other.currency_code
+    amount == other.amount && compare_currency_codes(other)
   end
+
 
 end

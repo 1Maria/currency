@@ -22,5 +22,15 @@ class CurrencyTest < MiniTest::Test
     refute currency == currency2
     refute currency2 == currency3
   end
-  
+
+  def test_add_two_currency_objects
+    currency = Currency.new(3, "RUB")
+    currency1 = Currency.new(3, "RUB")
+    currency2 = Currency.new(3, "USD")
+    currency_result = currency + currency1
+    assert currency_result.amount == 6
+    assert currency_result.currency_code == "RUB"
+    refute currency + currency2
+  end
+
 end
