@@ -15,10 +15,12 @@ class Currency
   end
 
   def +(other)
-    Currency.new(amount + other.amount, currency_code) if compare_currency_codes(other)
+    raise DifferentCurrencyCodeError.new("Different currency codes cannot be added together.") if !compare_currency_codes(other)
+    Currency.new(amount + other.amount, currency_code)
   end
 
   def -(other)
-    Currency.new(amount - other.amount, currency_code) if compare_currency_codes(other)
+    raise DifferentCurrencyCodeError.new("Different currency codes cannot be subtracted together.") if !compare_currency_codes(other)
+    Currency.new(amount - other.amount, currency_code)
   end
 end
