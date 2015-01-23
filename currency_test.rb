@@ -67,11 +67,7 @@ class CurrencyTest < MiniTest::Test
 
   def test_initializes_with_currency_to_conversion_hash
     c = CurrencyConverter.new({USD: 1,
-                               RUB: 64.45,
-                               TRY: 2.34,
-                               EUR: 0.87,
-                               GBP: 0.66,
-                               CAD: 1.23})
+                               RUB: 64.45})
     assert_equal 1.23, c.conversion_rates[:CAD]
   end
 end
