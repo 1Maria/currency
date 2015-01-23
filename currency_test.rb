@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './currency'
+require './currency_converter'
 require './different_currency_code_error'
+
 
 class CurrencyTest < MiniTest::Test
   def test_currency_class_exists
@@ -61,5 +63,15 @@ class CurrencyTest < MiniTest::Test
 
   def test_currency_converter_class_exists
     assert CurrencyConverter
+  end
+
+  def test_initializes_with_currency_to_conversion_hash
+    c = CurrencyConverter.new({USD: 1,
+                               RUB: 64.45,
+                               TRY: 2.34,
+                               EUR: 0.87,
+                               GBP: 0.66,
+                               CAD: 1.23})
+    assert_equal 1.23, c.conversion_rates[:CAD]
   end
 end
