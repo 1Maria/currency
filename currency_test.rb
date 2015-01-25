@@ -11,40 +11,40 @@ class CurrencyTest < MiniTest::Test
   end
 
   def test_created_with_amount_and_currency_code
-    currency = Currency.new(3, "RUB")
+    currency = Currency.new(3, :RUB)
     assert currency.amount == 3
     assert currency.currency_code.length == 3
   end
 
   def test_equals_other_currency_object
-    currency = Currency.new(3, "RUB")
-    currency1 = Currency.new(3, "RUB")
-    currency2 = Currency.new(3, "USD")
-    currency3 = Currency.new(4, "USD")
+    currency = Currency.new(3, :RUB)
+    currency1 = Currency.new(3, :RUB)
+    currency2 = Currency.new(3, :USD)
+    currency3 = Currency.new(4, :USD)
     assert currency == currency1
     refute currency == currency2
     refute currency2 == currency3
   end
 
   def test_add_two_currency_objects
-    currency = Currency.new(3, "RUB")
-    currency1 = Currency.new(3, "RUB")
+    currency = Currency.new(3, :RUB)
+    currency1 = Currency.new(3, :RUB)
     currency_result = currency + currency1
     assert currency_result.amount == 6
-    assert currency_result.currency_code == "RUB"
+    assert currency_result.currency_code == :RUB
   end
 
   def test_subtract_two_currency_objects
-    currency = Currency.new(3, "RUB")
-    currency1 = Currency.new(3, "RUB")
+    currency = Currency.new(3, :RUB)
+    currency1 = Currency.new(3, :RUB)
     currency_result1 = currency - currency1
     assert currency_result1.amount == 0
-    assert currency_result1.currency_code == "RUB"
+    assert currency_result1.currency_code == :RUB
   end
 
   def test_raises_error_code_when_currencies_dont_match
-    currency1 = Currency.new(3, "RUB")
-    currency2 = Currency.new(3, "USD")
+    currency1 = Currency.new(3, :RUB)
+    currency2 = Currency.new(3, :USD)
     assert_raises DifferentCurrencyCodeError do
       currency1 + currency2
     end
@@ -54,7 +54,7 @@ class CurrencyTest < MiniTest::Test
   end
 
   def test_currency_can_be_multiplied_by_fixnum_or_float
-    currency = Currency.new(3, "RUB")
+    currency = Currency.new(3, :RUB)
     result = currency * 10
     result1 = currency * 1.5
     assert_equal result.amount , 30
@@ -66,8 +66,14 @@ class CurrencyTest < MiniTest::Test
   end
 
   def test_initializes_with_currency_to_conversion_hash
-    c = CurrencyConverter.new({USD: 1,
-                               CAD: 1.23})
-    assert_equal 1.23, c.conversion_rates[:CAD]
+    currency = CurrencyConverter.new({USD: 1,
+                                      CAD: 1.23})
+    assert_equal 1.23, currency.conversion_rates[:CAD]
+  end
+
+  def test_converting_to_same_currency_code_will_return_same_amount
+    current = CurrencyConverter.new({USD: 1,
+                                     EUR: 0.89})
+    assert current.convert(Currency.new(3, :USD), :USD) == Currency.new(3, :USD)
   end
 end

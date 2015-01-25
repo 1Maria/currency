@@ -1,6 +1,8 @@
-class CurrencyConverter
+require './currency'
 
-  attr_reader :conversion_rates
+class CurrencyConverter < Currency
+
+  attr_reader :conversion_rates, :currency, :code
 
   def initialize(conversion_rates)
     @conversion_rates = conversion_rates

@@ -6,12 +6,12 @@ class Currency
     @currency_code = currency_code
   end
 
-  def ==(other)
-    amount == other.amount && compare_currency_codes(other)
-  end
-
   def compare_currency_codes(other)
     currency_code == other.currency_code
+  end
+
+  def ==(other)
+    amount == other.amount && compare_currency_codes(other)
   end
 
   def +(other)
@@ -25,6 +25,6 @@ class Currency
   end
 
   def *(number)
-    Currency.new(amount * number, currency_code) 
+    Currency.new(amount * number, currency_code)
   end
 end
