@@ -7,4 +7,16 @@ class CurrencyConverter < Currency
   def initialize(conversion_rates)
     @conversion_rates = conversion_rates
   end
+
+  def convert(currency, code)
+    # puts currency.amount
+    # puts currency.currency_code
+    # puts code
+
+    if conversion_rates.include?(currency.currency_code) &&
+      conversion_rates.include?(code)
+      changed_cash = (currency.amount / conversion_rates[currency.currency_code]) * (conversion_rates[code])
+      Currency.new(changed_cash, code)
+    end
+  end
 end
