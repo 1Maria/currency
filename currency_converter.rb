@@ -15,6 +15,7 @@ class CurrencyConverter < Currency
         conversion_rates[currency.currency_code]) *
         (conversion_rates[code])
       Currency.new(changed_cash, code)
+    else raise UnknownCurrencyCodeError.new
     end
   end
 end
