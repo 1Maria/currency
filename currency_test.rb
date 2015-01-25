@@ -97,4 +97,16 @@ class CurrencyTest < MiniTest::Test
     assert currencies.convert(Currency.new(3, :USD), :CAD) == Currency.new(3.72, :CAD)
     assert currencies.convert(Currency.new(3, :EUR), :CAD) == Currency.new(4.18, :CAD)
   end
+
+  def raise_error_when_trying_to_convert_to_or_from_unknown_currencies
+    currencies = CurrencyConverter.new({USD: 1,
+      CAD: 1.24,
+      EUR: 0.89})
+      assert_raises UnknownCurrencyCodeError do
+        currencies.convert(Currency.new(3, :RUB), :USD)
+      end
+      assert_raises UnknownCurrencyCodeError do
+        currencies.convert(Currency.new(3, :EUR), :GBP)
+      end
+  end
 end
