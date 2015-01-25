@@ -12,7 +12,7 @@ class CurrencyTest < MiniTest::Test
 
   def test_created_with_amount_and_currency_code
     currency = Currency.new(3, :RUB)
-    assert currency.amount == 3
+    assert currency.amount == 3.00
     assert currency.currency_code.length == 3
   end
 
@@ -67,8 +67,8 @@ class CurrencyTest < MiniTest::Test
 
   def test_initializes_with_currency_to_conversion_hash
     currency = CurrencyConverter.new({USD: 1,
-                                      CAD: 1.23})
-    assert_equal 1.23, currency.conversion_rates[:CAD]
+                                      CAD: 1.24})
+    assert_equal 1.24, currency.conversion_rates[:CAD]
   end
 
   def test_converting_to_same_currency_code_will_return_same_amount
@@ -85,8 +85,16 @@ class CurrencyTest < MiniTest::Test
 
   def test_initializes_with_hash_of_three_currencies
     currencies = CurrencyConverter.new({USD: 1,
-                                        CAD: 1.23,
+                                        CAD: 1.24,
                                         EUR: 0.89})
     assert_equal 0.89, currencies.conversion_rates[:EUR]
+  end
+
+  def test_convert_between_any_two_included_currencies
+    currencies = CurrencyConverter.new({USD: 1,
+                                        CAD: 1.24,
+                                        EUR: 0.89})
+    assert currencies.convert(Currency.new(3, :USD), :CAD) == Currency.new(3.72, :CAD)
+    assert currencies.convert(Currency.new(3, :EUR), :CAD) == Currency.new(4.18, :CAD)
   end
 end
