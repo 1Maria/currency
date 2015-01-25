@@ -76,4 +76,10 @@ class CurrencyTest < MiniTest::Test
                                      EUR: 0.89})
     assert current.convert(Currency.new(3, :USD), :USD) == Currency.new(3, :USD)
   end
+
+  def test_convert_to_different_currency_code
+    current = CurrencyConverter.new({USD: 1,
+                                     EUR: 0.89})
+    assert current.convert(Currency.new(3, :USD), :EUR) == Currency.new(2.67, :EUR)
+  end
 end
